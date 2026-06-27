@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>IMAMIYA_MELODY へんしゅうぶ * 2号</title>
+  <meta name="theme-color" content="#f4efe7" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="brand">
+      <h1>IMAMIYA_MELODY</h1>
+      <p class="hiragana">へんしゅうぶ</p>
+      <p class="asterisk">* 2号</p>
+    </div>
+    <div class="todayWrap">
+      <div class="smallLabel">きょうのひとこと</div>
+      <div class="today" id="todayNote">また、歩いてきて。</div>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="メインメニュー">
+    <button class="tab active" data-tab="home">表紙</button>
+    <button class="tab" data-tab="library">あずける</button>
+    <button class="tab" data-tab="meeting">編集会議</button>
+    <button class="tab" data-tab="selection">えらぶ</button>
+    <button class="tab" data-tab="sequence">ならべる</button>
+    <button class="tab" data-tab="letter">編集部だより</button>
+    <button class="tab" data-tab="theme">テーマ</button>
+    <button class="tab" data-tab="profile">編集部員</button>
+    <button class="tab" data-tab="backup">とっておく</button>
+  </nav>
+
+  <main>
+    <section id="home" class="panel active coverPanel">
+      <div class="coverCard">
+        <h2>IMAMIYA_MELODY</h2>
+        <p class="coverSub">へんしゅうぶ</p>
+        <p class="coverStar">* 2号</p>
+        <div class="coverLine"></div>
+        <p class="coverNote" id="coverNote">写真は、歩いた分だけ。</p>
+        <div class="homeBtns">
+          <button data-go="library">あずける</button>
+          <button data-go="meeting">編集会議</button>
+          <button data-go="sequence">つづきをみる</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="library" class="panel">
+      <div class="card uploadCard">
+        <h2>あずける</h2>
+        <p>写真をまとめて預けます。画像本体と編集メモはこの端末内に保存されます。</p>
+        <label class="uploadBtn">
+          しゃしんをあずかる
+          <input id="fileInput" type="file" accept="image/*" multiple />
+        </label>
+        <p class="miniMessage" id="depositMessage">あずけたら、ゆっくり見ます。　* 2号</p>
+      </div>
+      <div class="toolbar">
+        <input id="searchInput" placeholder="ファイル名・メモで検索" />
+        <select id="filterRating">
+          <option value="all">全部</option>
+          <option value="5">★★★★★</option>
+          <option value="4">★★★★☆</option>
+          <option value="3">★★★☆☆</option>
+          <option value="2">★★☆☆☆</option>
+          <option value="1">またこんど</option>
+          <option value="0">未評価</option>
+        </select>
+      </div>
+      <div id="photoGrid" class="photoGrid"></div>
+    </section>
+
+    <section id="meeting" class="panel">
+      <div class="card coffeeCard">
+        <h2>編集会議</h2>
+        <p class="coffee">☕ コーヒーをいれました。</p>
+        <p id="meetingLine">今日は10枚だけ見よう。</p>
+        <div class="rowBtns">
+          <button id="startMeeting">10枚だけ見る</button>
+          <button id="meetingNoteBtn">編集部だよりを書く</button>
+        </div>
+      </div>
+      <div id="meetingGrid" class="photoGrid"></div>
+    </section>
+
+    <section id="selection" class="panel">
+      <div class="card">
+        <h2>えらぶ</h2>
+        <p>★★★★★と★★★★☆を中心に表示。「この本に必要か」で見る。</p>
+      </div>
+      <div id="selectionGrid" class="photoGrid"></div>
+    </section>
+
+    <section id="sequence" class="panel">
+      <div class="card">
+        <h2>ならべる</h2>
+        <p>採用写真をドラッグで並べ替え。余白ページも挿入できます。</p>
+        <div class="rowBtns">
+          <button id="addBlank">＋ よはく</button>
+          <button id="exportPlan">編集プランを書き出し</button>
+        </div>
+      </div>
+      <div id="sequenceList" class="sequenceList"></div>
+    </section>
+
+    <section id="letter" class="panel">
+      <div class="card letterCard">
+        <h2>編集部だより</h2>
+        <p class="subtitle">作品が育つ過程を、少しだけ残す。</p>
+        <textarea id="letterInput" placeholder="例：空の写真が減ってきた。代わりに、窓が増えた。いい変化。"></textarea>
+        <button id="saveLetter">だよりをとっておく</button>
+      </div>
+      <div id="letterList" class="letterList"></div>
+    </section>
+
+    <section id="theme" class="panel">
+      <div class="card themeCard">
+        <h2>テーマ</h2>
+        <p class="subtitle">迷ったら、ここへ戻る。</p>
+        <textarea id="themeText"></textarea>
+        <button id="saveTheme">テーマをとっておく</button>
+      </div>
+    </section>
+
+    <section id="profile" class="panel">
+      <div class="card profileCard">
+        <h2>編集部員</h2>
+        <p class="subtitle">説明しすぎない奥付として置く。</p>
+        <div class="staffBox">
+          <div>編集長　鳥子</div>
+          <div>編集　　2号</div>
+          <div>写真　　tricot</div>
+        </div>
+        <div class="profileLayout">
+          <figure>
+            <img src="profile-camera.jpg" alt="カメラを構えるtricotのプロフィール写真" />
+            <figcaption>main profile</figcaption>
+          </figure>
+          <figure>
+            <img src="profile-cat.jpg" alt="猫マスクのプロフィール写真" />
+            <figcaption>sub profile</figcaption>
+          </figure>
+        </div>
+        <label>作者名</label>
+        <input id="authorName" value="tricot" />
+        <label>奥付テキスト</label>
+        <textarea id="creditText"></textarea>
+        <button id="saveProfile">プロフィールをとっておく</button>
+      </div>
+    </section>
+
+    <section id="backup" class="panel">
+      <div class="card">
+        <h2>とっておく</h2>
+        <p>編集メモと並び順を書き出し・読み込みします。画像本体は元写真フォルダを別で保管してください。</p>
+        <div class="rowBtns">
+          <button id="downloadJson">JSONを書き出し</button>
+          <label class="smallUpload">JSONを読み込み<input id="importJson" type="file" accept="application/json" /></label>
+          <button id="clearAll" class="danger">全部またこんど</button>
+        </div>
+        <pre id="backupLog"></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">IMAMIYA_MELODY へんしゅうぶ　* 2号 / © tricot<br><span>また、歩いてきて。</span></footer>
+
+  <dialog id="editDialog">
+    <form method="dialog" class="editForm">
+      <div class="dialogHead">
+        <h2 id="editTitle">編集メモ</h2>
+        <button value="cancel" class="iconBtn">×</button>
+      </div>
+      <img id="editImg" alt="選択写真" />
+
+      <label>評価</label>
+      <select id="editRating">
+        <option value="0">未評価</option>
+        <option value="5">★★★★★ この写真は、本になります。</option>
+        <option value="4">★★★★☆ 採用候補</option>
+        <option value="3">★★★☆☆ 保留</option>
+        <option value="2">★★☆☆☆ 記録</option>
+        <option value="1">またこんど</option>
+      </select>
+
+      <label>2号より</label>
+      <textarea id="editReason" placeholder="例：本の呼吸になる。生活の速度がある。"></textarea>
+
+      <label>編集指示</label>
+      <textarea id="editInstruction" placeholder="例：右10%トリミング、ナンバーぼかし、人物は残す、少し暗く。"></textarea>
+
+      <label>配置メモ</label>
+      <select id="editPlacement">
+        <option value="未定">未定</option>
+        <option value="単ページ">単ページ</option>
+        <option value="見開き左">見開き左</option>
+        <option value="見開き右">見開き右</option>
+        <option value="よはくの次">よはくの次</option>
+        <option value="章の始まり">章の始まり</option>
+        <option value="章の終わり">章の終わり</option>
+      </select>
+
+      <label class="check"><input type="checkbox" id="editSelected" /> ページ順に入れる</label>
+      <menu>
+        <button value="cancel">閉じる</button>
+        <button id="saveEdit" value="default">とっておく</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
