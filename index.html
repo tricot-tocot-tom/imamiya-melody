@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>IMAMIYA_MELODY へんしゅうぶ * 2号 第三刷 v2.9.1</title>
+<title>IMAMIYA_MELODY へんしゅうぶ * 2号 第三刷 v2.9.2</title>
 <meta name="theme-color" content="#f5f0e8" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="icon-192.png" />
@@ -29,7 +29,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}.brand h1,.coverCard h2{ov
 <main>
 <section id="home" class="panel active coverPanel"><div class="coverCard"><h2>IMAMIYA_MELODY</h2><p class="coverSub">へんしゅうぶ</p><p class="coverStar">* 2号</p><div class="coverLine"></div><p class="coverNote" id="coverNote">写真は、歩いた分だけ。</p><div class="homeBtns"><button data-go="drive">写真置き場</button><button data-go="contact">ベタ焼き</button><button data-go="meeting">編集会議</button></div></div></section>
 
-<section id="drive" class="panel"><div class="grid2"><div class="card"><h2>あずける</h2><p class="subtitle">Google Drive の写真置き場。ここから編集部へ素材を置きます。</p><label>DriveフォルダURL</label><input id="driveUrl" placeholder="https://drive.google.com/drive/folders/..." /><div class="driveButtons"><button id="saveDrive" class="primary">とっておく</button><button id="openDrive">ひらく</button><button id="copyDrive">コピー</button></div><p class="miniMessage" id="driveMessage">写真置き場を開けておきます。　* 2号</p></div><div class="card"><h2>ベタ焼き用に読み込む</h2><p>Driveは写真庫。ここは編集机。必要な分だけ端末から読み込んで、ベタ焼きを作ります。</p><div class="rowBtns"><button id="choosePhotosBtn" type="button">しゃしんをえらぶ（複数）</button><button id="chooseFolderBtn" type="button">フォルダをえらぶ</button><button id="chooseZipBtn" type="button">ZIPをあずける</button></div><input id="fileInput" class="hiddenFile" type="file" accept="image/*" multiple /><input id="folderInput" class="hiddenFile" type="file" accept="image/*" webkitdirectory directory multiple /><input id="zipInput" class="hiddenFile" type="file" accept=".zip,application/zip,application/x-zip-compressed" /><div id="selectedFileBox" class="selectedFileBox">まだ選択されていません。</div><p class="hint">スマホで複数選択できない時は、ZIPでまとめるのが安定です。</p><p class="miniMessage" id="depositMessage">整理しておきます。　* 2号</p><div class="progressBox" id="importProgressBox"><div><span class="liveBadge">読み込み</span></div><div class="progressTrack"><div class="progressBar" id="importProgressBar"></div></div><div class="progressText" id="importProgressText">受領をお待ちしています。
+<section id="drive" class="panel"><div class="grid2"><div class="card"><h2>あずける</h2><p class="subtitle">Google Drive の写真置き場。ここから編集部へ素材を置きます。</p><label>DriveフォルダURL</label><input id="driveUrl" placeholder="https://drive.google.com/drive/folders/..." /><div class="driveButtons"><button id="saveDrive" class="primary">とっておく</button><button id="openDrive">ひらく</button><button id="copyDrive">コピー</button></div><p class="miniMessage" id="driveMessage">写真置き場を開けておきます。　* 2号</p></div><div class="card"><h2>ベタ焼き用に読み込む</h2><p>Driveは写真庫。ここは編集机。必要な分だけ端末から読み込んで、ベタ焼きを作ります。</p><div class="rowBtns"><button id="choosePhotosBtn" type="button">しゃしんをえらぶ（複数）</button><button id="chooseFolderBtn" type="button">フォルダをえらぶ</button><button id="chooseZipBtn" type="button">ZIPをあずける</button></div><input id="fileInput" class="hiddenFile" type="file" accept="image/*" multiple /><input id="folderInput" class="hiddenFile" type="file" accept="image/*" webkitdirectory directory multiple /><input id="zipInput" class="hiddenFile" type="file" accept=".zip,application/zip,application/x-zip-compressed" /><div id="selectedFileBox" class="selectedFileBox">まだ選択されていません。</div><div id="fileDebug" class="selectedFileBox show">選択ログ：待機中</div><p class="hint">スマホで複数選択できない時は、ZIPでまとめるのが安定です。</p><p class="miniMessage" id="depositMessage">整理しておきます。　* 2号</p><div class="progressBox" id="importProgressBox"><div><span class="liveBadge">読み込み</span></div><div class="progressTrack"><div class="progressBar" id="importProgressBar"></div></div><div class="progressText" id="importProgressText">受領をお待ちしています。
 　　　* 2号</div></div><div class="cameraChecks" id="cameraChecks"></div></div></div><div class="card"><h2>読み込み一覧</h2><p class="subtitle">直近でベタ焼きに入れた写真。即反映の確認用。</p><div id="uploadList" class="uploadList"><div class="muted">まだありません。</div></div></div></section>
 
 <section id="receipt" class="panel"><div class="card"><h2>受領棚</h2><p class="subtitle">届いた写真の置き場。まず整える。それから見る。</p><div class="kpi"><div><b id="totalPhotos">0</b>写真</div><div><b id="selectedCount">0</b>ページ候補</div><div><b id="ratedCount">0</b>評価済み</div></div></div><div class="receiptList" id="receiptList"></div></section>
@@ -54,14 +54,14 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}.brand h1,.coverCard h2{ov
 <footer class="foot">IMAMIYA_MELODY へんしゅうぶ　* 2号 / © tricot<br><span>また、歩いてきて。</span></footer>
 
 
-<dialog id="versionDialog"><div class="versionInfo"><div class="dialogHead"><h2>第三刷 v2.9</h2><button class="iconBtn" id="closeVersion" type="button">×</button></div><p class="subtitle">IMAMIYA_MELODY へんしゅうぶ * 2号</p><ul><li>第三刷 v2.9として更新</li><li>カメラ選択に「自動判別」を追加</li><li>手動で選んだカメラ名をZIP読み込みにも優先反映</li><li>選択済みファイル表示を見やすく調整</li><li>待機中・読み込み中・完了表示を整理</li><li>2号の案内文を正式な編集部員として追加</li><li>service worker のキャッシュ名を v2.9 に更新</li><li>既存の編集データ保存キーは維持</li></ul><p class="miniMessage">現在の編集机です。
+<dialog id="versionDialog"><div class="versionInfo"><div class="dialogHead"><h2>第三刷 v2.9.2</h2><button class="iconBtn" id="closeVersion" type="button">×</button></div><p class="subtitle">IMAMIYA_MELODY へんしゅうぶ * 2号</p><ul><li>第三刷 v2.9.2として更新</li><li>ZIP選択直後にファイル名・サイズを表示</li><li>選択イベントが来たか、キャンセル扱いかを画面に表示</li><li>Android Chrome / PWAで沈黙しないようにログを追加</li><li>ZIP読み込み前の画面停止原因を修正</li><li>service worker のキャッシュ名を v2.9.2 に更新</li><li>既存の編集データ保存キーは維持</li></ul><p class="miniMessage">現在の編集机です。
 　　　* 2号</p></div></dialog>
 <dialog id="editDialog"><form method="dialog" class="editForm"><div class="dialogHead"><h2 id="editTitle">編集メモ</h2><button value="cancel" class="iconBtn">×</button></div><img id="editImg" alt="選択写真" /><label>評価</label><select id="editRating"><option value="0">未評価</option><option value="5">★★★★★ この写真は、本になります。</option><option value="4">★★★★☆ 採用候補</option><option value="3">★★★☆☆ 保留</option><option value="2">★★☆☆☆ 記録</option><option value="1">またこんど</option></select><label>カメラ</label><select id="editCamera"></select><label>付箋</label><select id="editSticky"><option value="">なし</option><option value="採用候補">採用候補</option><option value="あとで">あとで</option><option value="またこんど">またこんど</option></select><label>2号より</label><textarea id="editReason" placeholder="例：本の呼吸になる。生活の速度がある。"></textarea><label>編集指示</label><textarea id="editInstruction" placeholder="例：右10%トリミング、ナンバーぼかし、人物は残す、少し暗く。"></textarea><label>配置メモ</label><select id="editPlacement"><option value="未定">未定</option><option value="単ページ">単ページ</option><option value="見開き左">見開き左</option><option value="見開き右">見開き右</option><option value="よはくの次">よはくの次</option><option value="章の始まり">章の始まり</option><option value="章の終わり">章の終わり</option></select><label class="check"><input type="checkbox" id="editSelected" /> ページ順に入れる</label><menu><button value="cancel">閉じる</button><button id="saveEdit" value="default">とっておく</button></menu></form></dialog>
 <div class="toast" id="toast"></div>
 <script src="jszip.min.js"></script>
 <script>
 const KEY='imamiya_melody_henshubu_v2';
-const APP_VERSION='第三刷 v2.9.1';
+const APP_VERSION='第三刷 v2.9.2';
 const cameras=['Smartphone','Kodak','HOLGA','3COINS','CHARMERA'];
 const cameraChoices=['自動判別',...cameras];
 const defaultTheme=`Cocco\nolive\nSUGINAMI MELODY\n大宮サンセット\nホンマタカシ\n半径1km\n説明しない\n歩く速度\n暮らしそのもの\nごっこは、本気で。`;
@@ -69,6 +69,10 @@ const lines=['写真は、歩いた分だけ。','暮らしは、ちゃんと作
 let state={photos:[],sequence:[],letters:[],driveUrl:'https://drive.google.com/drive/folders/1swhtNttW-Y_aCxG65hQ5Z89QhNC7MESk',theme:defaultTheme,author:'tricot',credit:'IMAMIYA_MELODY\nphotographs\n© tricot',receipts:{}};
 let editingId=null,pageIndex=0,pickupMin=1;
 const $=id=>document.getElementById(id);
+function escapeHtml(v){return String(v??'').replace(/[&<>'\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));}
+let pickerPending=null;
+function setFileDebug(text){const el=$('fileDebug'); if(el) el.textContent='選択ログ：'+text;}
+function fileSizeLabel(file){if(!file)return ''; const n=file.size||0; if(n>1024*1024*1024)return (n/1024/1024/1024).toFixed(2)+'GB'; if(n>1024*1024)return (n/1024/1024).toFixed(1)+'MB'; if(n>1024)return Math.round(n/1024)+'KB'; return n+'B';}
 function save(){localStorage.setItem(KEY,JSON.stringify(state));}
 function load(){try{const raw=localStorage.getItem(KEY); if(raw){state={...state,...JSON.parse(raw)};}}catch(e){} cameras.forEach(c=>{if(!state.receipts[c])state.receipts[c]={status:'準備中',count:0,last:''};});}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
@@ -208,12 +212,116 @@ ZIP読込部品を読み込めませんでした。
 }
 function exportPlan(){const lines=['IMAMIYA_MELODY 編集プラン','',...state.sequence.map((it,i)=>{if(it.type==='blank')return `P${i+1} よはく`; const p=state.photos.find(x=>x.id===it.id); return `P${i+1} ${p?.name}\n評価: ${stars(p?.rating)}\nカメラ: ${p?.camera}\n2号より: ${p?.reason||''}\n編集指示: ${p?.instruction||''}\n配置: ${p?.placement||''}\n`;})]; const blob=new Blob([lines.join('\n')],{type:'text/plain'});download(blob,'IMAMIYA_MELODY_edit_plan.txt')}
 function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function init(){load();document.title='IMAMIYA_MELODY へんしゅうぶ * 2号 '+APP_VERSION;const vb=$('versionBtn'); if(vb) vb.textContent=APP_VERSION; const cv=$('closeVersion'); if(cv) cv.onclick=()=>$('versionDialog').close(); if(vb) vb.onclick=()=>$('versionDialog').showModal();$('todayNote').textContent=lines[Math.floor(Math.random()*lines.length)];$('coverNote').textContent=lines[Math.floor(Math.random()*lines.length)];document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>setTab(b.dataset.go));document.querySelectorAll('#pickupFilters button').forEach(b=>b.onclick=()=>{pickupMin=+b.dataset.min;document.querySelectorAll('#pickupFilters button').forEach(x=>x.classList.toggle('active',x===b));renderPickup();});$('choosePhotosBtn').onclick=()=>{$('fileInput').click();};$('chooseFolderBtn').onclick=()=>{$('folderInput').click();};$('chooseZipBtn').onclick=()=>{$('zipInput').click();};$('fileInput').addEventListener('change',e=>{const files=[...e.target.files]; if(files.length){setSelectedFile(files.length===1?files[0].name:`${files.length}枚の写真`, currentCameraFallback()||guessCamera(files[0].webkitRelativePath||files[0].name)); addFiles(files);} e.target.value='';});$('folderInput').addEventListener('change',e=>{const files=[...e.target.files]; if(files.length){setSelectedFile(`${files.length}枚の写真`, currentCameraFallback()||guessCamera(files[0].webkitRelativePath||files[0].name)); addFiles(files);} e.target.value='';});$('zipInput').addEventListener('change',e=>{const file=e.target.files && e.target.files[0]; if(file){setSelectedFile(file.name, currentCameraFallback()||guessCamera(file.name)); addZip(file).catch(err=>{console.error(err);setDepositMessage(`${file.name}
+function beginPicker(inputId,label){
+  const input=$(inputId);
+  if(!input){toast(label+'の入力部品が見つかりません。');return;}
+  pickerPending={inputId,label,changed:false,started:Date.now()};
+  setFileDebug(`${label}：選択画面を開きました`);
+  setDepositMessage(`${label}の選択画面を開きました。
+戻ってきたら、ここに受領状態を出します。
+　　　　* 2号`);
+  setImportProgress(0,0,'待機中');
+  const onFocus=()=>setTimeout(()=>{
+    if(!pickerPending || pickerPending.inputId!==inputId || pickerPending.changed)return;
+    const count=input.files?input.files.length:0;
+    if(count>0){
+      setFileDebug(`${label}：focus復帰時に${count}件を確認。changeが遅れている可能性があります`);
+      if(inputId==='zipInput') handleZipInput(input);
+      else if(inputId==='fileInput') handlePhotoInput(input);
+      else if(inputId==='folderInput') handleFolderInput(input);
+      return;
+    }
+    setFileDebug(`${label}：戻りましたがファイルを受け取れませんでした。Android側でキャンセル扱いの可能性`);
+    setDepositMessage(`${label}を受け取れませんでした。
+もう一度選ぶか、ZIP名を短くして作り直してください。
+　　　　* 2号`);
+    pickerPending=null;
+  },700);
+  window.addEventListener('focus',onFocus,{once:true});
+  input.click();
+}
+function markPickerChanged(label,detail){
+  if(pickerPending) pickerPending.changed=true;
+  setFileDebug(`${label}：changeイベント受信。${detail||''}`);
+}
+function handlePhotoInput(input){
+  const files=[...(input.files||[])];
+  if(!files.length){setFileDebug('写真：changeは来たが0件');return;}
+  markPickerChanged('写真',`${files.length}件`);
+  setSelectedFile(files.length===1?files[0].name:`${files.length}枚の写真`, currentCameraFallback()||guessCamera(files[0].webkitRelativePath||files[0].name));
+  addFiles(files).catch(err=>{console.error(err);setDepositMessage(`写真の読み込み開始時に止まりました。
+${err?.message||err}
+　　　　* 2号`);setImportProgress(0,1,'エラー');});
+  input.value=''; pickerPending=null;
+}
+function handleFolderInput(input){
+  const files=[...(input.files||[])];
+  if(!files.length){setFileDebug('フォルダ：changeは来たが0件');return;}
+  markPickerChanged('フォルダ',`${files.length}件`);
+  setSelectedFile(`${files.length}枚の写真`, currentCameraFallback()||guessCamera(files[0].webkitRelativePath||files[0].name));
+  addFiles(files).catch(err=>{console.error(err);setDepositMessage(`フォルダ読み込み開始時に止まりました。
+${err?.message||err}
+　　　　* 2号`);setImportProgress(0,1,'エラー');});
+  input.value=''; pickerPending=null;
+}
+function handleZipInput(input){
+  const file=input.files && input.files[0];
+  if(!file){setFileDebug('ZIP：changeは来たが0件');return;}
+  markPickerChanged('ZIP',`${file.name} / ${fileSizeLabel(file)} / ${file.type||'type不明'}`);
+  setSelectedFile(file.name, currentCameraFallback()||guessCamera(file.name));
+  setDepositMessage(`${file.name}
+${fileSizeLabel(file)} / ${file.type||'type不明'}
+ZIPを受け取りました。解析に入ります。
+　　　　* 2号`);
+  addZip(file).catch(err=>{console.error(err);setDepositMessage(`${file.name}
 読み込み開始時に止まりました。
+${err?.message||err}
 もう一度ZIPを選び直してください。
-　　　　* 2号`);setImportProgress(0,1,'エラー');toast('読み込み開始時に止まりました。');});} e.target.value='';});['searchInput','filterRating','filterCamera'].forEach(id=>$(id).addEventListener('input',renderPhotos));$('saveDrive').onclick=()=>{state.driveUrl=$('driveUrl').value.trim();save();toast('Driveリンクをとっておきました。')};$('openDrive').onclick=()=>{const u=$('driveUrl').value.trim()||state.driveUrl;if(u)window.open(u,'_blank');else toast('Driveリンクがまだありません。')};$('copyDrive').onclick=async()=>{const u=$('driveUrl').value.trim()||state.driveUrl;if(!u)return toast('Driveリンクがまだありません。');await navigator.clipboard?.writeText(u);toast('コピーしました。')};$('makeContact').onclick=()=>toast('ベタ焼き、整えました。\n　　　　* 2号');$('startMeeting').onclick=()=>{const pool=state.photos.filter(p=>+p.rating===0).slice(0,10);$('meetingGrid').innerHTML=pool.length?pool.map(thumb).join(''):'<div class="card muted">未評価の写真はありません。</div>';$('meetingGrid').querySelectorAll('.thumb').forEach(el=>el.onclick=()=>openEdit(el.dataset.id));};$('notifyBtn').onclick=()=>toast('編集長。\nベタ焼きができています。\n時間のあるときに。\n　　　　* 2号');$('meetingNoteBtn').onclick=()=>setTab('letter');$('saveEdit').onclick=e=>{e.preventDefault();const p=state.photos.find(x=>x.id===editingId);if(!p)return;p.rating=+$('editRating').value;p.camera=$('editCamera').value;p.sticky=$('editSticky').value;p.reason=$('editReason').value;p.instruction=$('editInstruction').value;p.placement=$('editPlacement').value;const want=$('editSelected').checked;const has=state.sequence.some(x=>x.type==='photo'&&x.id===p.id);if(want&&!has)state.sequence.push({type:'photo',id:p.id});if(!want&&has)state.sequence=state.sequence.filter(x=>!(x.type==='photo'&&x.id===p.id));save();$('editDialog').close();renderAll();};$('addBlank').onclick=()=>{state.sequence.push({type:'blank',id:'blank-'+Date.now()});save();renderAll()};$('exportPlan').onclick=exportPlan;$('prevPage').onclick=()=>{pageIndex=Math.max(0,pageIndex-1);renderPager()};$('nextPage').onclick=()=>{pageIndex=Math.min(state.sequence.length-1,pageIndex+1);renderPager()};$('saveLetter').onclick=()=>{const text=$('letterInput').value.trim();if(!text)return;state.letters.push({date:new Date().toLocaleString('ja-JP'),text});$('letterInput').value='';save();renderLetters();toast('編集部だよりをとっておきました。')};$('saveTheme').onclick=()=>{state.theme=$('themeText').value;save();toast('テーマをとっておきました。')};$('saveProfile').onclick=()=>{state.author=$('authorName').value;state.credit=$('creditText').value;save();toast('奥付をとっておきました。')};$('downloadJson').onclick=()=>download(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),'IMAMIYA_MELODY_henshubu_backup.json');$('importJson').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state={...state,...JSON.parse(r.result)};save();renderAll();toast('読み込みました。')}catch(err){toast('読み込めませんでした。')}};r.readAsText(f)};$('clearAll').onclick=()=>{if(confirm('全部またこんどにしますか？')){localStorage.removeItem(KEY);state={photos:[],sequence:[],letters:[],driveUrl:'https://drive.google.com/drive/folders/1swhtNttW-Y_aCxG65hQ5Z89QhNC7MESk',theme:defaultTheme,author:'tricot',credit:'IMAMIYA_MELODY\nphotographs\n© tricot',receipts:{}};load();renderAll();}};renderAll();setImportProgress(0,0,'待機中');}
+　　　　* 2号`);setImportProgress(0,1,'エラー');toast('読み込み開始時に止まりました。');});
+  input.value=''; pickerPending=null;
+}
+function init(){
+  load();
+  document.title='IMAMIYA_MELODY へんしゅうぶ * 2号 '+APP_VERSION;
+  const vb=$('versionBtn'); if(vb) vb.textContent=APP_VERSION;
+  const cv=$('closeVersion'); if(cv) cv.onclick=()=>$('versionDialog').close();
+  if(vb) vb.onclick=()=>$('versionDialog').showModal();
+  $('todayNote').textContent=lines[Math.floor(Math.random()*lines.length)];
+  $('coverNote').textContent=lines[Math.floor(Math.random()*lines.length)];
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+  document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>setTab(b.dataset.go));
+  document.querySelectorAll('#pickupFilters button').forEach(b=>b.onclick=()=>{pickupMin=+b.dataset.min;document.querySelectorAll('#pickupFilters button').forEach(x=>x.classList.toggle('active',x===b));renderPickup();});
+  $('choosePhotosBtn').onclick=()=>beginPicker('fileInput','写真');
+  $('chooseFolderBtn').onclick=()=>beginPicker('folderInput','フォルダ');
+  $('chooseZipBtn').onclick=()=>beginPicker('zipInput','ZIP');
+  $('fileInput').addEventListener('change',e=>handlePhotoInput(e.target));
+  $('folderInput').addEventListener('change',e=>handleFolderInput(e.target));
+  $('zipInput').addEventListener('change',e=>handleZipInput(e.target));
+  ['searchInput','filterRating','filterCamera'].forEach(id=>$(id).addEventListener('input',renderPhotos));
+  $('saveDrive').onclick=()=>{state.driveUrl=$('driveUrl').value.trim();save();toast('Driveリンクをとっておきました。')};
+  $('openDrive').onclick=()=>{const u=$('driveUrl').value.trim()||state.driveUrl;if(u)window.open(u,'_blank');else toast('Driveリンクがまだありません。')};
+  $('copyDrive').onclick=async()=>{const u=$('driveUrl').value.trim()||state.driveUrl;if(!u)return toast('Driveリンクがまだありません。');await navigator.clipboard?.writeText(u);toast('コピーしました。')};
+  $('makeContact').onclick=()=>toast('ベタ焼き、整えました。\n　　　　* 2号');
+  $('startMeeting').onclick=()=>{const pool=state.photos.filter(p=>+p.rating===0).slice(0,10);$('meetingGrid').innerHTML=pool.length?pool.map(thumb).join(''):'<div class="card muted">未評価の写真はありません。</div>';$('meetingGrid').querySelectorAll('.thumb').forEach(el=>el.onclick=()=>openEdit(el.dataset.id));};
+  $('notifyBtn').onclick=()=>toast('編集長。\nベタ焼きができています。\n時間のあるときに。\n　　　　* 2号');
+  $('meetingNoteBtn').onclick=()=>setTab('letter');
+  $('saveEdit').onclick=e=>{e.preventDefault();const p=state.photos.find(x=>x.id===editingId);if(!p)return;p.rating=+$('editRating').value;p.camera=$('editCamera').value;p.sticky=$('editSticky').value;p.reason=$('editReason').value;p.instruction=$('editInstruction').value;p.placement=$('editPlacement').value;const want=$('editSelected').checked;const has=state.sequence.some(x=>x.type==='photo'&&x.id===p.id);if(want&&!has)state.sequence.push({type:'photo',id:p.id});if(!want&&has)state.sequence=state.sequence.filter(x=>!(x.type==='photo'&&x.id===p.id));save();$('editDialog').close();renderAll();};
+  $('addBlank').onclick=()=>{state.sequence.push({type:'blank',id:'blank-'+Date.now()});save();renderAll()};
+  $('exportPlan').onclick=exportPlan;
+  $('prevPage').onclick=()=>{pageIndex=Math.max(0,pageIndex-1);renderPager()};
+  $('nextPage').onclick=()=>{pageIndex=Math.min(state.sequence.length-1,pageIndex+1);renderPager()};
+  $('saveLetter').onclick=()=>{const text=$('letterInput').value.trim();if(!text)return;state.letters.push({date:new Date().toLocaleString('ja-JP'),text});$('letterInput').value='';save();renderLetters();toast('編集部だよりをとっておきました。')};
+  $('saveTheme').onclick=()=>{state.theme=$('themeText').value;save();toast('テーマをとっておきました。')};
+  $('saveProfile').onclick=()=>{state.author=$('authorName').value;state.credit=$('creditText').value;save();toast('奥付をとっておきました。')};
+  $('downloadJson').onclick=()=>download(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),'IMAMIYA_MELODY_henshubu_backup.json');
+  $('importJson').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{state={...state,...JSON.parse(r.result)};save();renderAll();toast('読み込みました。')}catch(err){toast('読み込めませんでした。')}};r.readAsText(f)};
+  $('clearAll').onclick=()=>{if(confirm('全部またこんどにしますか？')){localStorage.removeItem(KEY);state={photos:[],sequence:[],letters:[],driveUrl:'https://drive.google.com/drive/folders/1swhtNttW-Y_aCxG65hQ5Z89QhNC7MESk',theme:defaultTheme,author:'tricot',credit:'IMAMIYA_MELODY\nphotographs\n© tricot',receipts:{}};load();renderAll();}};
+  renderAll();
+  setImportProgress(0,0,'待機中');
+  setFileDebug('待機中');
+}
 init();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(reg=>{reg.update?.();}).catch(()=>{});}
 </script>
 </body>
 </html>
