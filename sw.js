@@ -1,5 +1,5 @@
-const CACHE_NAME = 'imamiya-melody-v2-9';
-const ASSETS = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./profile-cat.jpg','./profile-camera.jpg'];
+const CACHE_NAME = 'imamiya-melody-v2-9-1';
+const ASSETS = ['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./profile-cat.jpg','./profile-camera.jpg','./jszip.min.js'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
