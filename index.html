@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>IMAMIYA_MELODY へんしゅうぶ * pocot 第三刷 v2.9.8</title>
+<title>IMAMIYA_MELODY へんしゅうぶ * pocot 第三刷 v2.9.9</title>
 <meta name="theme-color" content="#f5f0e8" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="icon-192.png" />
@@ -58,14 +58,14 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}.brand h1,.coverCard h2{ov
 <footer class="foot">IMAMIYA_MELODY へんしゅうぶ　* pocot / © tricot<br><span>また、歩いてきて。</span></footer>
 
 
-<dialog id="versionDialog"><div class="versionInfo"><div class="dialogHead"><h2>第三刷 v2.9.8</h2><button class="iconBtn" id="closeVersion" type="button">×</button></div><p class="subtitle">IMAMIYA_MELODY へんしゅうぶ * pocot</p><ul><li>「未確認」「確認済み」タブを追加</li><li>各写真に「見た」チェックを追加</li><li>★評価と閲覧済みを分離</li><li>★1以上を集める「★ピックアップ」を継続</li><li>pocotへ編集命令欄を追加</li><li>重複整理機能を維持</li><li>service worker のキャッシュ名を v2.9.8 に更新</li></ul><p class="miniMessage">1号、★は評価。「見た」は作業記録。混ぜないようにしました。
+<dialog id="versionDialog"><div class="versionInfo"><div class="dialogHead"><h2>第三刷 v2.9.9</h2><button class="iconBtn" id="closeVersion" type="button">×</button></div><p class="subtitle">IMAMIYA_MELODY へんしゅうぶ * pocot</p><ul><li>「未確認」「確認済み」タブを追加</li><li>各写真に「見た」チェックを追加</li><li>★評価と閲覧済みを分離</li><li>★1以上を集める「★ピックアップ」を継続</li><li>pocotへ編集命令欄を追加</li><li>重複整理機能を維持</li><li>service worker のキャッシュ名を v2.9.9 に更新</li></ul><p class="miniMessage">1号、軽量保存は「待つ」ではなく「元ZIPでもう一度サムネイル復元」にしました。
 　　　* pocot</p></div></dialog>
-<dialog id="editDialog"><form method="dialog" class="editForm"><div class="dialogHead"><h2 id="editTitle">編集メモ</h2><button value="cancel" class="iconBtn">×</button></div><img id="editImg" alt="選択写真" /><label>評価</label><select id="editRating"><option value="0">未評価</option><option value="5">★★★★★ この写真は、本になります。</option><option value="4">★★★★☆ 採用候補</option><option value="3">★★★☆☆ 保留</option><option value="2">★★☆☆☆ 記録</option><option value="1">またこんど</option></select><label>カメラ</label><select id="editCamera"></select><label>付箋</label><select id="editSticky"><option value="">なし</option><option value="採用候補">採用候補</option><option value="あとで">あとで</option><option value="またこんど">またこんど</option></select><label>pocotより</label><textarea id="editReason" placeholder="例：本の呼吸になる。生活の速度がある。"></textarea><label>編集指示</label><textarea id="editInstruction" placeholder="例：右10%トリミング、ナンバーぼかし、人物は残す、少し暗く。"></textarea><label>配置メモ</label><select id="editPlacement"><option value="未定">未定</option><option value="単ページ">単ページ</option><option value="見開き左">見開き左</option><option value="見開き右">見開き右</option><option value="よはくの次">よはくの次</option><option value="章の始まり">章の始まり</option><option value="章の終わり">章の終わり</option></select><label class="check"><input type="checkbox" id="editSeen" /> 見た</label><label class="check"><input type="checkbox" id="editPocot" /> pocot候補</label><label class="check"><input type="checkbox" id="editSelected" /> ページ順に入れる</label><menu><button value="cancel">閉じる</button><button id="saveEdit" value="default">とっておく</button></menu></form></dialog>
+<dialog id="editDialog"><form method="dialog" class="editForm"><div class="dialogHead"><h2 id="editTitle">編集メモ</h2><button value="cancel" class="iconBtn">×</button></div><img id="editImg" alt="選択写真" /><div id="liteThumbActions" class="rowBtns" style="display:none"><button id="regenThumbBtn" type="button" class="soft">元ZIPからサムネイル復元</button><span class="hint">同じZIPをもう一度預けると、重複追加せずこの写真のサムネイルを作り直します。</span></div><label>評価</label><select id="editRating"><option value="0">未評価</option><option value="5">★★★★★ この写真は、本になります。</option><option value="4">★★★★☆ 採用候補</option><option value="3">★★★☆☆ 保留</option><option value="2">★★☆☆☆ 記録</option><option value="1">またこんど</option></select><label>カメラ</label><select id="editCamera"></select><label>付箋</label><select id="editSticky"><option value="">なし</option><option value="採用候補">採用候補</option><option value="あとで">あとで</option><option value="またこんど">またこんど</option></select><label>pocotより</label><textarea id="editReason" placeholder="例：本の呼吸になる。生活の速度がある。"></textarea><label>編集指示</label><textarea id="editInstruction" placeholder="例：右10%トリミング、ナンバーぼかし、人物は残す、少し暗く。"></textarea><label>配置メモ</label><select id="editPlacement"><option value="未定">未定</option><option value="単ページ">単ページ</option><option value="見開き左">見開き左</option><option value="見開き右">見開き右</option><option value="よはくの次">よはくの次</option><option value="章の始まり">章の始まり</option><option value="章の終わり">章の終わり</option></select><label class="check"><input type="checkbox" id="editSeen" /> 見た</label><label class="check"><input type="checkbox" id="editPocot" /> pocot候補</label><label class="check"><input type="checkbox" id="editSelected" /> ページ順に入れる</label><menu><button value="cancel">閉じる</button><button id="saveEdit" value="default">とっておく</button></menu></form></dialog>
 <div class="toast" id="toast"></div>
 <script src="jszip.min.js"></script>
 <script>
 const KEY='imamiya_melody_henshubu_v2';
-const APP_VERSION='第三刷 v2.9.8';
+const APP_VERSION='第三刷 v2.9.9';
 const cameras=['Smartphone','Kodak','HOLGA','3COINS','CHARMERA'];
 const cameraChoices=['自動判別',...cameras];
 const defaultTheme=`Cocco\nolive\nSUGINAMI MELODY\n大宮サンセット\nホンマタカシ\n半径1km\n説明しない\n歩く速度\n暮らしそのもの\nごっこは、本気で。`;
@@ -74,7 +74,7 @@ let state={photos:[],sequence:[],letters:[],driveUrl:'https://drive.google.com/d
 let editingId=null,pageIndex=0,pickupMin=1,contactLimit=120;
 const $=id=>document.getElementById(id);
 function escapeHtml(v){return String(v??'').replace(/[&<>'\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));}
-const PLACEHOLDER_SRC='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#eee2d2"/><text x="150" y="150" text-anchor="middle" font-size="22" fill="#7c7165">軽量保存</text></svg>');
+const PLACEHOLDER_SRC='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#eee2d2"/><text x="150" y="150" text-anchor="middle" font-size="22" fill="#7c7165">サムネ未作成</text></svg>');
 function photoSrc(p){return p&&p.src?p.src:PLACEHOLDER_SRC;}
 let pickerPending=null;
 function setFileDebug(text){const el=$('fileDebug'); if(el) el.textContent='選択ログ：'+text;}
@@ -83,8 +83,9 @@ function makeLiteState(){
   return {
     ...state,
     photos:(state.photos||[]).map(p=>({
-      id:p.id,name:p.name,camera:p.camera,rating:p.rating,reason:p.reason,
+      id:p.id,name:p.name,camera:p.camera,size:p.size,rating:p.rating,reason:p.reason,
       instruction:p.instruction,placement:p.placement,sticky:p.sticky,created:p.created,
+      seen:!!p.seen,pocot:!!p.pocot,sourceZip:p.sourceZip||'',entryName:p.entryName||p.name,
       srcLite:true
     }))
   };
@@ -184,7 +185,7 @@ function renderReceipts(){const box=$('receiptList');box.innerHTML=cameras.map(c
 function filterList(list=state.photos){let q=($('searchInput')?.value||'').toLowerCase();let r=$('filterRating')?.value||'all';let c=$('filterCamera')?.value||'all';return list.filter(p=>(r==='all'||String(p.rating)===r)&&(c==='all'||p.camera===c)&&(!q||[p.name,p.reason,p.instruction,p.placement,p.camera,p.sticky].join(' ').toLowerCase().includes(q)))}
 function sortedList(list){const mode=state.sortMode||'import_desc'; const idx=new Map((state.photos||[]).map((p,i)=>[p.id,i])); const a=[...list]; const byName=(x,y)=>String(x.name||'').localeCompare(String(y.name||''),'ja'); if(mode==='import_asc')return a.sort((x,y)=>(idx.get(x.id)||0)-(idx.get(y.id)||0)); if(mode==='import_desc')return a.sort((x,y)=>(idx.get(y.id)||0)-(idx.get(x.id)||0)); if(mode==='name_asc')return a.sort(byName); if(mode==='name_desc')return a.sort((x,y)=>byName(y,x)); if(mode==='rating_desc')return a.sort((x,y)=>(+y.rating||0)-(+x.rating||0)||((idx.get(y.id)||0)-(idx.get(x.id)||0))); if(mode==='rating_asc')return a.sort((x,y)=>(+x.rating||0)-(+y.rating||0)||((idx.get(y.id)||0)-(idx.get(x.id)||0))); if(mode==='camera_asc')return a.sort((x,y)=>String(x.camera||'').localeCompare(String(y.camera||''),'ja')||byName(x,y)); if(mode==='shuffle')return a.sort(()=>Math.random()-.5); return a;}
 function renderSortControl(){const el=$('sortMode'); if(el) el.value=state.sortMode||'import_desc';}
-function thumb(p){const src=photoSrc(p); const title=escapeHtml(p.name||''); return `<div class="thumb ${p.seen?'seen':''}" data-id="${p.id}"><span class="tag">${escapeHtml(p.camera||'')}</span>${p.sticky?`<span class="sticky">${escapeHtml(p.sticky)}</span>`:''}<label class="seenMark" onclick="event.stopPropagation()"><input type="checkbox" data-seen="${p.id}" ${p.seen?'checked':''}>見た</label><img src="${src}" loading="lazy" decoding="async" alt="${title}" onerror="this.onerror=null;this.src='${PLACEHOLDER_SRC}'"><div class="meta"><div class="stars">${stars(p.rating)}${p.pocot?' / pocot候補':''}</div><div class="muted" title="${title}">${title}</div></div></div>`}
+function thumb(p){const src=photoSrc(p); const title=escapeHtml(p.name||''); const lite=!p.src; return `<div class="thumb ${p.seen?'seen':''} ${lite?'lite':''}" data-id="${p.id}"><span class="tag">${escapeHtml(p.camera||'')}</span>${p.sticky?`<span class="sticky">${escapeHtml(p.sticky)}</span>`:''}<label class="seenMark" onclick="event.stopPropagation()"><input type="checkbox" data-seen="${p.id}" ${p.seen?'checked':''}>見た</label><img src="${src}" loading="lazy" decoding="async" alt="${title}" onerror="this.onerror=null;this.src='${PLACEHOLDER_SRC}'"><div class="meta"><div class="stars">${stars(p.rating)}${p.pocot?' / pocot候補':''}${lite?' / サムネ未作成':''}</div><div class="muted" title="${title}">${title}</div>${lite?'<div class="hint">開いて元ZIPから復元</div>':''}</div></div>`}
 function attachThumbHandlers(root){root.querySelectorAll('.thumb').forEach(el=>el.onclick=()=>openEdit(el.dataset.id)); root.querySelectorAll('input[data-seen]').forEach(ch=>ch.onchange=e=>{const p=state.photos.find(x=>x.id===ch.dataset.seen); if(!p)return; p.seen=ch.checked; save(); renderAll();});}
 function currentContactList(){return sortedList(filterList());}
 function markListSeen(list){list.forEach(p=>p.seen=true); save(); renderAll(); toast(`${list.length}枚を確認済みにしました。
@@ -204,7 +205,7 @@ function moveSeq(i,d){const j=i+d;if(j<0||j>=state.sequence.length)return;[state
 function renderPager(){const frame=$('pageFrame'); if(!frame)return; const items=state.sequence; if(pageIndex>=items.length)pageIndex=Math.max(0,items.length-1); $('pageNo').textContent=items.length?`P${pageIndex+1} / ${items.length}`:'P0'; if(!items.length){frame.textContent='まだページがありません。';$('pageMemo').textContent='';return;} const it=items[pageIndex]; if(it.type==='blank'){frame.innerHTML='<div class="noteLine">よはく</div>';$('pageMemo').textContent='ここで呼吸。';return;} const p=state.photos.find(x=>x.id===it.id); if(!p)return; frame.innerHTML=`<img src="${p.src}" alt="${p.name}">`; $('pageMemo').textContent=[p.name,p.reason,p.instruction,p.placement].filter(Boolean).join('\n');}
 function renderLetters(){const box=$('letterList');box.innerHTML=state.letters.length?state.letters.slice().reverse().map(l=>`<div class="letter"><small>${l.date}</small>\n\n${l.text}\n\n　　　　* pocot</div>`).join(''):'<div class="card muted">だよりはまだありません。</div>'}
 function renderThemeProfile(){$('driveUrl').value=state.driveUrl||'';$('themeText').value=state.theme||defaultTheme;$('authorName').value=state.author||'tricot';$('creditText').value=state.credit||''; const pc=$('pocotCommand'); if(pc)pc.value=state.pocotCommand||'';}
-function openEdit(id){editingId=id;const p=state.photos.find(x=>x.id===id);if(!p)return;$('editTitle').textContent=p.name;$('editImg').src=photoSrc(p);$('editRating').value=p.rating||0;$('editCamera').value=p.camera||'Smartphone';$('editSticky').value=p.sticky||'';$('editReason').value=p.reason||'';$('editInstruction').value=p.instruction||'';$('editPlacement').value=p.placement||'未定';$('editSeen').checked=!!p.seen;$('editPocot').checked=!!p.pocot;$('editSelected').checked=state.sequence.some(x=>x.type==='photo'&&x.id===id);$('editDialog').showModal();}
+function openEdit(id){editingId=id;const p=state.photos.find(x=>x.id===id);if(!p)return;$('editTitle').textContent=p.name;$('editImg').src=photoSrc(p);const liteBox=$('liteThumbActions'); if(liteBox) liteBox.style.display=p.src?'none':'flex';$('editRating').value=p.rating||0;$('editCamera').value=p.camera||'Smartphone';$('editSticky').value=p.sticky||'';$('editReason').value=p.reason||'';$('editInstruction').value=p.instruction||'';$('editPlacement').value=p.placement||'未定';$('editSeen').checked=!!p.seen;$('editPocot').checked=!!p.pocot;$('editSelected').checked=state.sequence.some(x=>x.type==='photo'&&x.id===id);$('editDialog').showModal();if(!p.src)toast('サムネイル未作成です。元ZIPから復元できます。');}
 function safeId(){return crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random())}
 async function fileToThumbDataURL(file,max=120){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const blob=new Blob([r.result],{type:file.type||'image/jpeg'});const img=new Image();img.onload=()=>{const scale=Math.min(1,max/Math.max(img.width,img.height));const w=Math.max(1,Math.round(img.width*scale));const h=Math.max(1,Math.round(img.height*scale));const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);res(canvas.toDataURL('image/jpeg',0.34));URL.revokeObjectURL(img.src)};img.onerror=rej;img.src=URL.createObjectURL(blob)};r.onerror=rej;r.readAsArrayBuffer(file)})}
 function setDepositMessage(text){const el=$('depositMessage'); if(el) el.textContent=text;}
@@ -279,6 +280,22 @@ async function addFiles(files){
   setDepositMessage(`受領しました。\n追加 ${added}枚 / 重複 ${skipped}枚\nベタ焼きへどうぞ。\n　　　　* pocot`);
   toast(`写真を受領しました。\n追加 ${added}枚 / 重複 ${skipped}枚\n　　　　* pocot`);
 }
+
+function findExistingPhoto(name,cam,size){
+  const key=incomingKey(name,cam,size||'');
+  const loose=incomingKey(name,cam,'');
+  return (state.photos||[]).find(p=>photoKey(p)===key || incomingKey(p.name,p.camera,'')===loose);
+}
+async function restoreThumbFromZipEntry(existing,entry,blob,zipName){
+  if(!existing || existing.src) return false;
+  const imgFile=new File([blob],entry.name,{type:blob.type||'image/jpeg'});
+  existing.src=await fileToThumbDataURL(imgFile);
+  existing.srcLite=false;
+  existing.size=blob.size||entry._data?.uncompressedSize||existing.size||0;
+  existing.sourceZip=zipName||existing.sourceZip||'';
+  existing.entryName=entry.name||existing.entryName||existing.name;
+  return true;
+}
 async function addZip(file){
   if(!file)return;
   const forced=currentCameraFallback();
@@ -303,24 +320,35 @@ ZIP読込部品を読み込めませんでした。
     if(!entries.length){toast('ZIP内に読み込める画像がありません。');return;}
     setImportProgress(0,entries.length,'ZIPから読み込み');
     setDepositMessage(`${file.name}\n${fileCam} として受領します。\n0 / ${entries.length}\n　　　　* pocot`);
-    let added=0, skipped=0;
+    let added=0, skipped=0, restored=0, processed=0;
     const seen=existingPhotoKeySet();
     for(const entry of entries){
       try{
+        processed++;
         const cam=fileCam||guessCamera(entry.name||file.name);
         const k=incomingKey(entry.name,cam,entry._data?.uncompressedSize||0);
         const loose=incomingKey(entry.name,cam,'');
-        if(seen.has(k)||seen.has(loose)){skipped++; continue;}
+        const exists=findExistingPhoto(entry.name,cam,entry._data?.uncompressedSize||0);
+        const blobNeeded = (!exists || !exists.src);
+        if(seen.has(k)||seen.has(loose)){
+          if(exists && !exists.src){
+            const blob=await entry.async('blob');
+            if(await restoreThumbFromZipEntry(exists,entry,blob,file.name)) restored++;
+          } else {
+            skipped++;
+          }
+          continue;
+        }
         const blob=await entry.async('blob');
         const imgFile=new File([blob],entry.name,{type:blob.type||'image/jpeg'});
         const src=await fileToThumbDataURL(imgFile);
-        state.photos.push({id:safeId(),name:entry.name,src,camera:cam,size:blob.size||entry._data?.uncompressedSize||0,rating:0,reason:'',instruction:'',placement:'未定',sticky:'',seen:false,pocot:false,created:new Date().toISOString()});
+        state.photos.push({id:safeId(),name:entry.name,src,camera:cam,size:blob.size||entry._data?.uncompressedSize||0,sourceZip:file.name,entryName:entry.name,rating:0,reason:'',instruction:'',placement:'未定',sticky:'',seen:false,pocot:false,created:new Date().toISOString()});
         seen.add(k); seen.add(loose);
         state.receipts[cam]={status:'受領済',count:(state.receipts[cam]?.count||0)+1,last:new Date().toLocaleDateString('ja-JP')};
         added++;
-        if((added+skipped)%5===0||(added+skipped)===entries.length){
-          setDepositMessage(`ZIPからベタ焼きを作っています…\n追加 ${added} / 重複 ${skipped}\n${added+skipped} / ${entries.length}\n　　　　* pocot`);
-          setImportProgress(added+skipped,entries.length,'ZIPからベタ焼きを作っています');
+        if(processed%5===0||processed===entries.length){
+          setDepositMessage(`ZIPからベタ焼きを作っています…\n追加 ${added} / 復元 ${restored} / 重複 ${skipped}\n${processed} / ${entries.length}\n　　　　* pocot`);
+          setImportProgress(processed,entries.length,'ZIPからベタ焼きを作っています');
           renderKpi(); renderUploadList();
           await new Promise(r=>setTimeout(r,0));
         }
@@ -328,7 +356,7 @@ ZIP読込部品を読み込めませんでした。
     }
     save();
     renderAll();
-    setImportProgress(added,entries.length,'完了');
+    setImportProgress(entries.length,entries.length,'完了');
     setDepositMessage(`ZIPを受領しました。\n${added}枚\nベタ焼きへどうぞ。\n　　　　* pocot`);
     toast(`写真を受領しました。\n${added}枚\n　　　　* pocot`);
   }catch(e){
@@ -459,6 +487,7 @@ function init(){
   const spc=$('savePocotCommand'); if(spc)spc.onclick=()=>{state.pocotCommand=$('pocotCommand').value.trim(); save(); toast('pocotへの編集命令をとっておきました。');}; document.querySelectorAll('#commandBtns button').forEach(b=>b.onclick=()=>{$('pocotCommand').value=b.dataset.cmd; state.pocotCommand=b.dataset.cmd; save();}); $('startMeeting').onclick=()=>{const pool=state.photos.filter(p=>!p.seen).slice(0,10);$('meetingGrid').innerHTML=pool.length?pool.map(thumb).join(''):'<div class="card muted">未確認の写真はありません。</div>';attachThumbHandlers($('meetingGrid'));};
   $('notifyBtn').onclick=()=>toast('編集長。\nベタ焼きができています。\n時間のあるときに。\n　　　　* pocot');
   $('meetingNoteBtn').onclick=()=>setTab('letter');
+  const rtb=$('regenThumbBtn'); if(rtb)rtb.onclick=()=>{const p=state.photos.find(x=>x.id===editingId); if(!p)return; $('editDialog').close(); toast('元ZIPをもう一度選んでください。重複追加せずサムネだけ復元します。'); beginPicker('zipInput','サムネ復元用ZIP');};
   $('saveEdit').onclick=e=>{e.preventDefault();const p=state.photos.find(x=>x.id===editingId);if(!p)return;p.rating=+$('editRating').value;p.camera=$('editCamera').value;p.sticky=$('editSticky').value;p.reason=$('editReason').value;p.instruction=$('editInstruction').value;p.placement=$('editPlacement').value;p.seen=$('editSeen').checked;p.pocot=$('editPocot').checked;const want=$('editSelected').checked;const has=state.sequence.some(x=>x.type==='photo'&&x.id===p.id);if(want&&!has)state.sequence.push({type:'photo',id:p.id});if(!want&&has)state.sequence=state.sequence.filter(x=>!(x.type==='photo'&&x.id===p.id));save();$('editDialog').close();renderAll();};
   $('addBlank').onclick=()=>{state.sequence.push({type:'blank',id:'blank-'+Date.now()});save();renderAll()};
   $('exportPlan').onclick=exportPlan;
@@ -481,7 +510,7 @@ if('serviceWorker' in navigator){
     if(refreshing)return; refreshing=true;
     setTimeout(()=>location.reload(),300);
   });
-  navigator.serviceWorker.register('sw.js?v=297').then(reg=>{
+  navigator.serviceWorker.register('sw.js?v=299').then(reg=>{
     reg.update?.();
     if(reg.waiting) reg.waiting.postMessage({type:'SKIP_WAITING'});
   }).catch(()=>{});
