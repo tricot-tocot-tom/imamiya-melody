@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>IMAMIYA_MELODY へんしゅうぶ * 2号 第三刷 v2.9.2</title>
+<title>IMAMIYA_MELODY へんしゅうぶ * 2号 第三刷 v2.9.4</title>
 <meta name="theme-color" content="#f5f0e8" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="icon-192.png" />
@@ -61,7 +61,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}.brand h1,.coverCard h2{ov
 <script src="jszip.min.js"></script>
 <script>
 const KEY='imamiya_melody_henshubu_v2';
-const APP_VERSION='第三刷 v2.9.3';
+const APP_VERSION='第三刷 v2.9.4';
 const cameras=['Smartphone','Kodak','HOLGA','3COINS','CHARMERA'];
 const cameraChoices=['自動判別',...cameras];
 const defaultTheme=`Cocco\nolive\nSUGINAMI MELODY\n大宮サンセット\nホンマタカシ\n半径1km\n説明しない\n歩く速度\n暮らしそのもの\nごっこは、本気で。`;
@@ -73,7 +73,20 @@ function escapeHtml(v){return String(v??'').replace(/[&<>'\"]/g,ch=>({'&':'&amp;
 let pickerPending=null;
 function setFileDebug(text){const el=$('fileDebug'); if(el) el.textContent='選択ログ：'+text;}
 function fileSizeLabel(file){if(!file)return ''; const n=file.size||0; if(n>1024*1024*1024)return (n/1024/1024/1024).toFixed(2)+'GB'; if(n>1024*1024)return (n/1024/1024).toFixed(1)+'MB'; if(n>1024)return Math.round(n/1024)+'KB'; return n+'B';}
-function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+function save(){
+  try{
+    localStorage.setItem(KEY,JSON.stringify(state));
+    return true;
+  }catch(e){
+    console.warn('save failed',e);
+    const msg='保存容量を超えました。
+写真は読み込めていますが、このまま閉じると保存できない可能性があります。
+少ない枚数に分けるか、v2.9.4以降の軽量読込を使ってください。
+　　　　* 2号';
+    try{setDepositMessage(msg); setImportProgress(0,1,'保存容量エラー'); toast('保存容量を超えました。');}catch(_){ }
+    return false;
+  }
+}
 function load(){try{const raw=localStorage.getItem(KEY); if(raw){state={...state,...JSON.parse(raw)};}}catch(e){} cameras.forEach(c=>{if(!state.receipts[c])state.receipts[c]={status:'準備中',count:0,last:''};});}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
 function stars(n){n=+n;return n? '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n):'未評価'}
@@ -120,7 +133,7 @@ function renderLetters(){const box=$('letterList');box.innerHTML=state.letters.l
 function renderThemeProfile(){$('driveUrl').value=state.driveUrl||'';$('themeText').value=state.theme||defaultTheme;$('authorName').value=state.author||'tricot';$('creditText').value=state.credit||''}
 function openEdit(id){editingId=id;const p=state.photos.find(x=>x.id===id);if(!p)return;$('editTitle').textContent=p.name;$('editImg').src=p.src;$('editRating').value=p.rating||0;$('editCamera').value=p.camera||'Smartphone';$('editSticky').value=p.sticky||'';$('editReason').value=p.reason||'';$('editInstruction').value=p.instruction||'';$('editPlacement').value=p.placement||'未定';$('editSelected').checked=state.sequence.some(x=>x.type==='photo'&&x.id===id);$('editDialog').showModal();}
 function safeId(){return crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random())}
-async function fileToThumbDataURL(file,max=520){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const blob=new Blob([r.result],{type:file.type||'image/jpeg'});const img=new Image();img.onload=()=>{const scale=Math.min(1,max/Math.max(img.width,img.height));const w=Math.max(1,Math.round(img.width*scale));const h=Math.max(1,Math.round(img.height*scale));const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);res(canvas.toDataURL('image/jpeg',0.78));URL.revokeObjectURL(img.src)};img.onerror=rej;img.src=URL.createObjectURL(blob)};r.onerror=rej;r.readAsArrayBuffer(file)})}
+async function fileToThumbDataURL(file,max=180){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const blob=new Blob([r.result],{type:file.type||'image/jpeg'});const img=new Image();img.onload=()=>{const scale=Math.min(1,max/Math.max(img.width,img.height));const w=Math.max(1,Math.round(img.width*scale));const h=Math.max(1,Math.round(img.height*scale));const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);res(canvas.toDataURL('image/jpeg',0.46));URL.revokeObjectURL(img.src)};img.onerror=rej;img.src=URL.createObjectURL(blob)};r.onerror=rej;r.readAsArrayBuffer(file)})}
 function setDepositMessage(text){const el=$('depositMessage'); if(el) el.textContent=text;}
 function setImportProgress(done,total,label='読み込み中'){
   const bar=$('importProgressBar'), text=$('importProgressText');
