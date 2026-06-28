@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>IMAMIYA_MELODY へんしゅうぶ * 2号 第三刷 v2.9.4</title>
+<title>IMAMIYA_MELODY へんしゅうぶ * 2号 第三刷 v2.9.5</title>
 <meta name="theme-color" content="#f5f0e8" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="icon-192.png" />
@@ -61,7 +61,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}.brand h1,.coverCard h2{ov
 <script src="jszip.min.js"></script>
 <script>
 const KEY='imamiya_melody_henshubu_v2';
-const APP_VERSION='第三刷 v2.9.4';
+const APP_VERSION='第三刷 v2.9.5';
 const cameras=['Smartphone','Kodak','HOLGA','3COINS','CHARMERA'];
 const cameraChoices=['自動判別',...cameras];
 const defaultTheme=`Cocco\nolive\nSUGINAMI MELODY\n大宮サンセット\nホンマタカシ\n半径1km\n説明しない\n歩く速度\n暮らしそのもの\nごっこは、本気で。`;
@@ -70,21 +70,38 @@ let state={photos:[],sequence:[],letters:[],driveUrl:'https://drive.google.com/d
 let editingId=null,pageIndex=0,pickupMin=1;
 const $=id=>document.getElementById(id);
 function escapeHtml(v){return String(v??'').replace(/[&<>'\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));}
+const PLACEHOLDER_SRC='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><rect width="300" height="300" fill="#eee2d2"/><text x="150" y="150" text-anchor="middle" font-size="22" fill="#7c7165">軽量保存</text></svg>');
+function photoSrc(p){return p&&p.src?p.src:PLACEHOLDER_SRC;}
 let pickerPending=null;
 function setFileDebug(text){const el=$('fileDebug'); if(el) el.textContent='選択ログ：'+text;}
 function fileSizeLabel(file){if(!file)return ''; const n=file.size||0; if(n>1024*1024*1024)return (n/1024/1024/1024).toFixed(2)+'GB'; if(n>1024*1024)return (n/1024/1024).toFixed(1)+'MB'; if(n>1024)return Math.round(n/1024)+'KB'; return n+'B';}
+function makeLiteState(){
+  return {
+    ...state,
+    photos:(state.photos||[]).map(p=>({
+      id:p.id,name:p.name,camera:p.camera,rating:p.rating,reason:p.reason,
+      instruction:p.instruction,placement:p.placement,sticky:p.sticky,created:p.created,
+      srcLite:true
+    }))
+  };
+}
 function save(){
   try{
     localStorage.setItem(KEY,JSON.stringify(state));
     return true;
   }catch(e){
-    console.warn('save failed',e);
-    const msg='保存容量を超えました。
-写真は読み込めていますが、このまま閉じると保存できない可能性があります。
-少ない枚数に分けるか、v2.9.4以降の軽量読込を使ってください。
-　　　　* 2号';
-    try{setDepositMessage(msg); setImportProgress(0,1,'保存容量エラー'); toast('保存容量を超えました。');}catch(_){ }
-    return false;
+    console.warn('full save failed',e);
+    try{
+      localStorage.setItem(KEY,JSON.stringify(makeLiteState()));
+      const msg='保存容量を超えたため、軽量保存に切り替えました。\n今の画面ではベタ焼きを見られます。閉じた後は写真本体ではなく、名前・評価・メモ中心で残ります。\n大きいZIPは分割、または次のIndexedDB版で本保存します。\n　　　　* 2号';
+      try{setDepositMessage(msg); toast('軽量保存に切り替えました。');}catch(_){ }
+      return 'lite';
+    }catch(e2){
+      console.warn('lite save failed',e2);
+      const msg='保存容量を超えました。\n写真は今の画面では読み込めていますが、このまま閉じると保存できません。\n100〜150枚くらいに分けるか、次のIndexedDB版が必要です。\n　　　　* 2号';
+      try{setDepositMessage(msg); setImportProgress(0,1,'保存容量エラー'); toast('保存容量を超えました。');}catch(_){ }
+      return false;
+    }
   }
 }
 function load(){try{const raw=localStorage.getItem(KEY); if(raw){state={...state,...JSON.parse(raw)};}}catch(e){} cameras.forEach(c=>{if(!state.receipts[c])state.receipts[c]={status:'準備中',count:0,last:''};});}
@@ -115,7 +132,7 @@ function bindCameraChecks(){document.querySelectorAll('input[name="camUpload"]')
 　　　　* 2号`);}});}); markCameraActive(currentCameraFallback()||'自動判別');}
 
 
-function setTab(id){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id)); if(id==='pager')renderPager();}
+function setTab(id){try{document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id)); if(id==='pager')renderPager();}catch(e){console.error('tab failed',e);toast('タブ切替で止まりました。再読み込みしてください。');}}
 function renderAll(){renderReceipts();renderFilters();renderPhotos();renderPickup();renderSelection();renderSequence();renderLetters();renderThemeProfile();renderKpi();renderCameraChecks();renderPager();renderUploadList();}
 function renderCameraChecks(){const box=$('cameraChecks'); if(!box)return; const current=currentCameraFallback()||'自動判別'; box.innerHTML=cameraChoices.map(c=>`<label class="${c===current?'active':''}"><input type="radio" name="camUpload" value="${c}" ${c===current?'checked':''}> ${c}</label>`).join(''); bindCameraChecks();}
 function renderFilters(){const f=$('filterCamera'), e=$('editCamera'); const opts='<option value="all">全カメラ</option>'+cameras.map(c=>`<option>${c}</option>`).join(''); f.innerHTML=opts; e.innerHTML=cameras.map(c=>`<option>${c}</option>`).join('');}
@@ -126,14 +143,14 @@ function thumb(p){return `<div class="thumb" data-id="${p.id}"><span class="tag"
 function renderPhotos(){const grid=$('photoGrid'); if(!grid)return; const list=filterList(); grid.innerHTML=list.length?list.map(thumb).join(''):'<div class="card muted">まだ写真がありません。</div>'; grid.querySelectorAll('.thumb').forEach(el=>el.onclick=()=>openEdit(el.dataset.id));}
 function renderPickup(){const grid=$('pickupGrid'); if(!grid)return; const list=state.photos.filter(p=>+p.rating>=pickupMin); $('pickupCount').textContent=list.length; $('pickupMessage').textContent=list.length?`★${pickupMin}以上を表示しています。\n${list.length}枚\n　　　　* 2号`:'★を付けた写真は、ここに集まります。　* 2号'; grid.innerHTML=list.length?list.map(thumb).join(''):'<div class="card muted">まだピックアップはありません。ベタ焼きで★を付けると、ここに出ます。</div>'; grid.querySelectorAll('.thumb').forEach(el=>el.onclick=()=>openEdit(el.dataset.id));}
 function renderSelection(){const grid=$('selectionGrid'); const list=state.photos.filter(p=>+p.rating>=4);grid.innerHTML=list.length?list.map(thumb).join(''):'<div class="card muted">採用候補はまだありません。</div>';grid.querySelectorAll('.thumb').forEach(el=>el.onclick=()=>openEdit(el.dataset.id));}
-function renderSequence(){const box=$('sequenceList'); const items=state.sequence; if(!items.length){box.innerHTML='<div class="card muted">まだページがありません。写真の編集メモで「ページ順に入れる」を選びます。</div>';return;} box.innerHTML=items.map((it,i)=>{if(it.type==='blank')return `<div class="seqItem blank"><div>P${i+1}</div><div>よはく</div><button data-del="${i}">またこんど</button></div>`; const p=state.photos.find(x=>x.id===it.id); if(!p)return ''; return `<div class="seqItem"><img src="${p.src}"><div><b>P${i+1}</b> ${p.name}<br><small>${p.placement||''} / ${p.reason||''}</small></div><div><button data-up="${i}">↑</button><button data-down="${i}">↓</button><button data-del="${i}">×</button></div></div>`}).join(''); box.querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>moveSeq(+b.dataset.up,-1));box.querySelectorAll('[data-down]').forEach(b=>b.onclick=()=>moveSeq(+b.dataset.down,1));box.querySelectorAll('[data-del]').forEach(b=>{b.onclick=()=>{state.sequence.splice(+b.dataset.del,1);save();renderAll();}})}
+function renderSequence(){const box=$('sequenceList'); const items=state.sequence; if(!items.length){box.innerHTML='<div class="card muted">まだページがありません。写真の編集メモで「ページ順に入れる」を選びます。</div>';return;} box.innerHTML=items.map((it,i)=>{if(it.type==='blank')return `<div class="seqItem blank"><div>P${i+1}</div><div>よはく</div><button data-del="${i}">またこんど</button></div>`; const p=state.photos.find(x=>x.id===it.id); if(!p)return ''; return `<div class="seqItem"><img src="${photoSrc(p)}"><div><b>P${i+1}</b> ${p.name}<br><small>${p.placement||''} / ${p.reason||''}</small></div><div><button data-up="${i}">↑</button><button data-down="${i}">↓</button><button data-del="${i}">×</button></div></div>`}).join(''); box.querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>moveSeq(+b.dataset.up,-1));box.querySelectorAll('[data-down]').forEach(b=>b.onclick=()=>moveSeq(+b.dataset.down,1));box.querySelectorAll('[data-del]').forEach(b=>{b.onclick=()=>{state.sequence.splice(+b.dataset.del,1);save();renderAll();}})}
 function moveSeq(i,d){const j=i+d;if(j<0||j>=state.sequence.length)return;[state.sequence[i],state.sequence[j]]=[state.sequence[j],state.sequence[i]];save();renderAll()}
 function renderPager(){const frame=$('pageFrame'); if(!frame)return; const items=state.sequence; if(pageIndex>=items.length)pageIndex=Math.max(0,items.length-1); $('pageNo').textContent=items.length?`P${pageIndex+1} / ${items.length}`:'P0'; if(!items.length){frame.textContent='まだページがありません。';$('pageMemo').textContent='';return;} const it=items[pageIndex]; if(it.type==='blank'){frame.innerHTML='<div class="noteLine">よはく</div>';$('pageMemo').textContent='ここで呼吸。';return;} const p=state.photos.find(x=>x.id===it.id); if(!p)return; frame.innerHTML=`<img src="${p.src}" alt="${p.name}">`; $('pageMemo').textContent=[p.name,p.reason,p.instruction,p.placement].filter(Boolean).join('\n');}
 function renderLetters(){const box=$('letterList');box.innerHTML=state.letters.length?state.letters.slice().reverse().map(l=>`<div class="letter"><small>${l.date}</small>\n\n${l.text}\n\n　　　　* 2号</div>`).join(''):'<div class="card muted">だよりはまだありません。</div>'}
 function renderThemeProfile(){$('driveUrl').value=state.driveUrl||'';$('themeText').value=state.theme||defaultTheme;$('authorName').value=state.author||'tricot';$('creditText').value=state.credit||''}
-function openEdit(id){editingId=id;const p=state.photos.find(x=>x.id===id);if(!p)return;$('editTitle').textContent=p.name;$('editImg').src=p.src;$('editRating').value=p.rating||0;$('editCamera').value=p.camera||'Smartphone';$('editSticky').value=p.sticky||'';$('editReason').value=p.reason||'';$('editInstruction').value=p.instruction||'';$('editPlacement').value=p.placement||'未定';$('editSelected').checked=state.sequence.some(x=>x.type==='photo'&&x.id===id);$('editDialog').showModal();}
+function openEdit(id){editingId=id;const p=state.photos.find(x=>x.id===id);if(!p)return;$('editTitle').textContent=p.name;$('editImg').src=photoSrc(p);$('editRating').value=p.rating||0;$('editCamera').value=p.camera||'Smartphone';$('editSticky').value=p.sticky||'';$('editReason').value=p.reason||'';$('editInstruction').value=p.instruction||'';$('editPlacement').value=p.placement||'未定';$('editSelected').checked=state.sequence.some(x=>x.type==='photo'&&x.id===id);$('editDialog').showModal();}
 function safeId(){return crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random())}
-async function fileToThumbDataURL(file,max=180){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const blob=new Blob([r.result],{type:file.type||'image/jpeg'});const img=new Image();img.onload=()=>{const scale=Math.min(1,max/Math.max(img.width,img.height));const w=Math.max(1,Math.round(img.width*scale));const h=Math.max(1,Math.round(img.height*scale));const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);res(canvas.toDataURL('image/jpeg',0.46));URL.revokeObjectURL(img.src)};img.onerror=rej;img.src=URL.createObjectURL(blob)};r.onerror=rej;r.readAsArrayBuffer(file)})}
+async function fileToThumbDataURL(file,max=120){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const blob=new Blob([r.result],{type:file.type||'image/jpeg'});const img=new Image();img.onload=()=>{const scale=Math.min(1,max/Math.max(img.width,img.height));const w=Math.max(1,Math.round(img.width*scale));const h=Math.max(1,Math.round(img.height*scale));const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);res(canvas.toDataURL('image/jpeg',0.34));URL.revokeObjectURL(img.src)};img.onerror=rej;img.src=URL.createObjectURL(blob)};r.onerror=rej;r.readAsArrayBuffer(file)})}
 function setDepositMessage(text){const el=$('depositMessage'); if(el) el.textContent=text;}
 function setImportProgress(done,total,label='読み込み中'){
   const bar=$('importProgressBar'), text=$('importProgressText');
@@ -360,7 +377,17 @@ function init(){
   setFileDebug('待機中');
 }
 init();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(reg=>{reg.update?.();}).catch(()=>{});}
+if('serviceWorker' in navigator){
+  let refreshing=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(refreshing)return; refreshing=true;
+    setTimeout(()=>location.reload(),300);
+  });
+  navigator.serviceWorker.register('sw.js?v=295').then(reg=>{
+    reg.update?.();
+    if(reg.waiting) reg.waiting.postMessage({type:'SKIP_WAITING'});
+  }).catch(()=>{});
+}
 </script>
 </body>
 </html>
