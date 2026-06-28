@@ -1,12 +1,1 @@
-{
-  "name":"IMAMIYA_MELODY へんしゅうぶ * 2号",
-  "short_name":"IM編集部",
-  "start_url":"./index.html",
-  "display":"standalone",
-  "background_color":"#f7f1e8",
-  "theme_color":"#f4efe7",
-  "icons":[
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
-  ]
-}
+{"name":"IMAMIYA_MELODY へんしゅうぶ * 2号","short_name":"へんしゅうぶ","start_url":"./","display":"standalone","background_color":"#f7f1e8","theme_color":"#f5f0e8","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"}]}
