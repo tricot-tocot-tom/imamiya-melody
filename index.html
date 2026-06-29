@@ -67,7 +67,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}.brand h1,.coverCard h2{ov
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script>
 const KEY='imamiya_melody_henshubu_v2';
-const APP_VERSION='第三刷 v3.5 強制復旧版';
+const APP_VERSION='第三刷 v3.5.1 強制復旧修正版';
 const cameras=['Smartphone','Kodak','HOLGA','3COINS','CHARMERA'];
 const defaultTheme=`Cocco\nolive\nSUGINAMI MELODY\n大宮サンセット\nホンマタカシ\n半径1km\n説明しない\n歩く速度\n暮らしそのもの\nごっこは、本気で。`;
 const lines=['写真は、歩いた分だけ。','暮らしは、ちゃんと作品になる。','今日は、帰り道だけ。','余白は、ケチらない。','いい写真は、帰り道にある。','繊細であることと、弱いことは違う。','ごっこは、本気で。','編集長。ベタ焼きを作っておきます。','また、歩いてきて。','今日は、ここまで。'];
@@ -320,6 +320,7 @@ function renderSubmit(){
   box.innerHTML=preview.length?preview.map(p=>`<img src="${p.src}" alt="${escapeHtml(p.name)}" title="${escapeHtml(p.name)} / ${stars(p.rating)}">`).join(''):'<div class="card muted">提出する写真はまだありません。</div>';
   setSubmitProgress(0,0,'提出内容を確認できます');
 }
+function escapeHtml(s){return String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('\"','&quot;').replaceAll("'",'&#39;')}
 function escapeAttr(s){return String(s||'').replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;')}
 
 function setSubmitStatus(text, linkUrl, filename){
